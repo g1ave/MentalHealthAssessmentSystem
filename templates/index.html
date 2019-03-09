@@ -1,0 +1,69 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Flask{% endblock %}
+
+{%  block navbar %}
+  <div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class= "navbar-brand">Flask</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            {% block detail  %}
+            {% if not name %}
+            <h2>欢迎使用心理健康自测系统，请<a href='/login'>登录!</a></h2>
+            {% elif get_flashed_messages() %}
+              <h2>Hello, {{ name }}</h2>
+              {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button class="close" type="button" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+              {% endfor %}
+            {% else %}
+              <form method="POST">
+
+                  <h3 class="page-header">基础测试题</h3>
+                {% for BQuestion in BasicQuestions %}
+                
+                  <div class="from-control">{{ BQuestion.ques}}</div>
+                  <label class="radio-inline"><input type="radio" name="options{{BQuestion.id}}" value="2">{{BQuestion.optionA}}</label>
+                  <br>
+                  <label class="radio-inline"><input type="radio" name="options{{BQuestion.id}}" value="1" >{{BQuestion.optionB}}</label>
+                  <br>
+                  <label class="radio-inline"><input type="radio" name="options{{BQuestion.id}}" value="0" >{{BQuestion.optionC}}</label>
+                
+               {% endfor %}
+                <h3 class="page-header">综合测试题</h3>
+               {% for SQuestion in SpecialQuestion %}
+                <div class="text">{{ SQuestion.ques}}</div>
+                  <label class="radio-inline"><input type="radio" name="sel{{SQuestion.id}}" value="8">{{SQuestion.optionA}}</label>
+                  <br>
+                  <label class="radio-inline"><input type="radio" name="sel{{SQuestion.id}}" value="4" >{{SQuestion.optionB}}</label>
+                  <br>
+                  <label class="radio-inline"><input type="radio" name="sel{{SQuestion.id}}" value="0" >{{SQuestion.optionC}}</label>
+                {% endfor %}
+                
+                <div class="form-group forn-inline">
+                    <button class="form-control btn-success btn-block" type="submit">提交</button>
+                    <button class="form-control btn-default btn-block" type="reset">重填</button>
+                </div>
+                
+              </form>
+              {% endif %}
+            {% endblock %}
+        </div>
+        <div class="col-sm-4">
+          {% block aside %}
+          {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

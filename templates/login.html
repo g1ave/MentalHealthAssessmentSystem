@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+
+{% block detail %}
+
+<form class="container container" style="max-width: 500px" method="POST">
+    <div class="page-header">
+        <h1>登录</h1>
+    </div>
+    <div class="form-group">
+        <span>
+            <label>用户名</label>
+            <input type="text" class="form-control"  name = "username">
+        </span>
+    </div>
+    <div class="form-group">
+        <label>密码：</label>
+        <input type="password" class="form-control" name = "passwd">
+    </div>
+    <label class="radio-inline"><input type="radio" name="options" value="customer" checked>客户</label>
+    <label class="radio-inline"><input type="radio" name="options" value="assitant" >营业员</label>
+    <label class="radio-inline"><input type="radio" name="options" value="admin" >管理员</label>
+    <br>
+    <p class="form-group">
+        <button class="form-control btn-success btn-block" type="submit">登录</button>
+        <button class="form-control btn-default btn-block" type="submit">注册</button>
+    </p>
+    <br>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+</form>
+
+{% endblock %}
